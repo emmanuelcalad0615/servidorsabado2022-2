@@ -1,28 +1,35 @@
 import  express  from 'express'
+import { ControladorHabitacion } from '../controllers/ControladorHabitacion.js'
+import { ControladorReservas } from '../controllers/ControladorReserva.js'
 
 //En el archivo de rutas creo una variable
 //Encargada de definir todos los ENDPOINTS de mi API
 
 //Por cada servicio que ofrece mi API debo tener un ENDPOINT o RUTA
 export let rutas=express.Router()
+
+//Creo un objeto de la clase ControladorHabitacion
+
+let controlHabitacion=new ControladorHabitacion()
+
+
 //Defino las rutas para cada servicio de mi API:
 
-//Registro de una habitación 
-rutas.post('/api/hotel/habitaciones', function (req, res) {
-    res.send('Estamos registrando una habitación')
-  })
 
-//Buscar todas las habitaciones 
-rutas.get('/api/hotel/habitaciones', function (req, res) {
-    res.send('Estamos buscando habitaciones')
-  })
+rutas.post('/api/hotel/habitaciones',controlHabitacion.agregarHabitacion)
 
-//Buscar por id una habitación
-rutas.get('/api/hotel/habitaciones/:id', function (req, res) {
-    res.send('Estamos buscando una habitacion por ID')
-  })
+rutas.get('/api/hotel/habitaciones',controlHabitacion.consultarHabitaciones)
 
-//Editar datos de una habitación
-rutas.put('/api/hotel/habitaciones/:id', function (req, res) {
-    res.send('Estamos editando una habitación')
-  })
+rutas.get('/api/hotel/habitaciones/:id',controlHabitacion.consultarHabitacion)
+
+rutas.put('/api/hotel/habitaciones/:id',controlHabitacion.editarHabitacion)
+
+let controlReserva= new ControladorReservas()
+//Rustas para servicios de reservas
+rutas.post('/api/hotel/reservas',controlReserva.agregarReserva)
+
+rutas.get('/api/hotel/reservas',controlReserva.consultarReservas)
+
+rutas.get('/api/hotel/reservas/:id',controlReserva.consultarReserva)
+
+rutas.put('/api/hotel/reservas/:id',controlReserva.editarReserva)
