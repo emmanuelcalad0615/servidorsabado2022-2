@@ -1,6 +1,8 @@
 export class ControladorReservas{
     constructor(){}
     agregarReserva(request,response){
+        let datosARegistrar=request.body
+        console.log(datosARegistrar)
         try{
             response.status(200).json({
                 "mensaje":"Exito al agregar la habitacion",
@@ -33,6 +35,8 @@ export class ControladorReservas{
         }
     }
     consultarReserva(request,response){
+        let id=request.params.id
+        console.log("El id enviado fue: "+id)
         try{
             response.status(200).json({
                 "mensaje":"Exito en la consulta",
@@ -49,6 +53,10 @@ export class ControladorReservas{
         }
     }
     editarReserva(request,response){
+        let id=request.params.id
+        let datosAEdit=request.body
+        console.log("Editando a: "+id)
+        console.log(datosAEdit)
         try{
             response.status(200).json({
                 "mensaje":"Exito en la edición",

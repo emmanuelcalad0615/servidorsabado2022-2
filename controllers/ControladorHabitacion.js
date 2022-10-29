@@ -4,6 +4,8 @@
 export class ControladorHabitacion{
     constructor(){}
     agregarHabitacion(request,response){
+        let datosARegistrar=request.body
+        console.log(datosARegistrar)
         try{
             response.status(200).json({
                 "mensaje":"Exito al agregar la habitacion",
@@ -36,6 +38,10 @@ export class ControladorHabitacion{
         }
     }
     consultarHabitacion(request,response){
+        let id=request.params.id
+        console.log("El id enviado fue: "+id)
+
+
         try{
             response.status(200).json({
                 "mensaje":"Exito en la consulta",
@@ -52,6 +58,10 @@ export class ControladorHabitacion{
         }
     }
     editarHabitacion(request,response){
+        let id=request.params.id
+        let datosAEdit=request.body
+        console.log("Editando a: "+id)
+        console.log(datosAEdit)
         try{
             response.status(200).json({
                 "mensaje":"Exito en la edición",
