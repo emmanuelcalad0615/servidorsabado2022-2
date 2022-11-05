@@ -1,9 +1,14 @@
+import { ServicioReserva } from "../services/ServicioReserva.js"
+
+
 export class ControladorReservas{
     constructor(){}
-    agregarReserva(request,response){
+    async agregarReserva(request,response){
         let datosARegistrar=request.body
-        console.log(datosARegistrar)
+        let objetoServicio= new ServicioReserva()
+        
         try{
+            await objetoServicio.agregarReserva(datosARegistrar)
             response.status(200).json({
                 "mensaje":"Exito al agregar la habitacion",
                 "data":null
@@ -18,11 +23,12 @@ export class ControladorReservas{
 
         }
     }
-    consultarReservas(request,response){
+    async consultarReservas(request,response){
+        let objetoServicio= new ServicioReserva()
         try{
             response.status(200).json({
                 "mensaje":"Exito en la consulta",
-                "data":null
+                "data":await objetoServicio.buscarReservas()
             })
 
         }
@@ -34,13 +40,13 @@ export class ControladorReservas{
 
         }
     }
-    consultarReserva(request,response){
+    async consultarReserva(request,response){
         let id=request.params.id
-        console.log("El id enviado fue: "+id)
+        let objetoServicio= new ServicioReserva()
         try{
             response.status(200).json({
                 "mensaje":"Exito en la consulta",
-                "data":null
+                "data":await objetoServicio.buscarReserva(id)
             })
 
         }
@@ -52,12 +58,12 @@ export class ControladorReservas{
 
         }
     }
-    editarReserva(request,response){
+    async editarReserva(request,response){
         let id=request.params.id
         let datosAEdit=request.body
-        console.log("Editando a: "+id)
-        console.log(datosAEdit)
+        let objetoServicio= new ServicioReserva()
         try{
+            await objetoServicio.editarReserva(id,datosAEdit)
             response.status(200).json({
                 "mensaje":"Exito en la edición",
                 "data":null

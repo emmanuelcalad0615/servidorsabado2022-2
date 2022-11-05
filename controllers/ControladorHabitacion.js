@@ -1,17 +1,19 @@
 //Una clase controlador establece los metodos(Acciones) que vamos a realizar en BD
 //Y está alíneado con el archivo de rutas
+import {ServicioHabitacion} from '../services/ServicioHabitacion.js'
 
 export class ControladorHabitacion{
     constructor(){}
-    agregarHabitacion(request,response){
+  async  agregarHabitacion(request,response){
         let datosARegistrar=request.body
-        console.log(datosARegistrar)
+        let objetoServicio= new ServicioHabitacion()
+
         try{
+            await objetoServicio.agregarHabitacion(datosARegistrar)
             response.status(200).json({
                 "mensaje":"Exito al agregar la habitacion",
                 "data":null
             })
-
         }
         catch(error){
             response.status(400).json({
@@ -21,11 +23,12 @@ export class ControladorHabitacion{
 
         }
     }
-    consultarHabitaciones(request,response){
+  async  consultarHabitaciones(request,response){
+        let objetoServicio= new ServicioHabitacion()
         try{
             response.status(200).json({
                 "mensaje":"Exito en la consulta",
-                "data":null
+                "data": await objetoServicio.buscarHabitaciones()
             })
 
         }
@@ -37,15 +40,15 @@ export class ControladorHabitacion{
 
         }
     }
-    consultarHabitacion(request,response){
+   async consultarHabitacion(request,response){
         let id=request.params.id
-        console.log("El id enviado fue: "+id)
+        let objetoServicio= new ServicioHabitacion()
 
 
         try{
             response.status(200).json({
                 "mensaje":"Exito en la consulta",
-                "data":null
+                "data":await objetoServicio.buscarHabitacion(id)
             })
 
         }
@@ -57,12 +60,12 @@ export class ControladorHabitacion{
 
         }
     }
-    editarHabitacion(request,response){
+   async editarHabitacion(request,response){
         let id=request.params.id
         let datosAEdit=request.body
-        console.log("Editando a: "+id)
-        console.log(datosAEdit)
+        let objetoServicio= new ServicioHabitacion()
         try{
+            await objetoServicio.editarHabitacion(id,datosAEdit)
             response.status(200).json({
                 "mensaje":"Exito en la edición",
                 "data":null
